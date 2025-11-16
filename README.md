@@ -1,8 +1,9 @@
 # VocabPy
-A foreign vocabulary learning tool.
+A Python-based foreign vocabulary learning tool.
 
 # Installation
-Run these commands in your terminal.
+Run these commands in your terminal in the directory where you want VocabPy to be kept.  
+You must have Python installed.
 
 Windows
 -------
