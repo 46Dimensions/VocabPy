@@ -1,9 +1,13 @@
 # VocabPy
 A Python-based foreign vocabulary learning tool.
 
+## [Updates](UPDATES.md)
+VocabPy is regularly updated. See the updates file to find out more.   
+[UPDATES.md](UPDATES.md)
+
 ## Installation
 Run these commands in your terminal.  
-You must have Python installed.
+You must have Python 3.10+ installed.
 
 ### Windows
 Run in Command Prompt.
