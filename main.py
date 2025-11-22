@@ -31,7 +31,7 @@ class VocabFileError(Exception):
 
 def on_keyboard_interrupt():
     """ Print a friendly goodbye message then exit with code 0. """
-    print("\nThanks for using VocabPy. Goodbye!")
+    print("\nThanks for using LexiconPro. Goodbye!")
     sys.exit(0)
 
 def get_jsons(dir: str) -> list:
@@ -462,7 +462,7 @@ def check_answer(
 
 def main() -> None:
     """
-    Run the interactive VocabPy session.
+    Run the interactive LexiconPro session.
 
     The function prints a brief header, lets the user select a vocabulary
     file, and then enters an infinite loop that repeatedly asks questions
@@ -506,7 +506,7 @@ def main() -> None:
         clear_lines(2)
 
     # --------------------------- Header --------------------------------
-    print("VocabPy - Foreign Vocabulary Learner")
+    print("LexiconPro - Foreign Vocabulary Learner")
     print("------------------------------------")
     print("")
 
@@ -548,5 +548,5 @@ except KeyboardInterrupt:
     on_keyboard_interrupt()
 except Exception as e:
     print(f"Error: {e}.")
-    print("Report it at https://github.com/46Dimensions/VocabPy/issues/new.")
+    print("Report it at https://github.com/46Dimensions/LexiconPro/issues/new.")
     time.sleep(5)

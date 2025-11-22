@@ -9,12 +9,12 @@ set "yellow=%ESC%[33m"
 set "reset=%ESC%[0m"
 
 echo %green%===============================%reset%
-echo %green%    VocabPy Windows Installer%reset%
+echo %green%    LexiconPro Windows Installer%reset%
 echo %green%===============================%reset%
 echo.
 
 :: -------------------------------------------------------
-set "BASE_URL=https://raw.githubusercontent.com/46Dimensions/VocabPy/main"
+set "BASE_URL=https://raw.githubusercontent.com/46Dimensions/LexiconPro/main"
 set "REQ_URL=%BASE_URL%/requirements.txt"
 set "MAIN_URL=%BASE_URL%/main.py"
 set "CREATE_URL=%BASE_URL%/create_vocab_file.py"
@@ -43,34 +43,34 @@ if %MAJOR%==3 if %MINOR% LSS 10 (
     exit /b 1
 )
 
-echo %yellow%Creating VocabPy directory...%reset%
-mkdir VocabPy 2>nul
+echo %yellow%Creating LexiconPro directory...%reset%
+mkdir LexiconPro 2>nul
 
 echo %yellow%Checking for curl...%reset%
 curl --version >nul 2>&1
 if %errorlevel%==0 (
     echo %green%curl found — downloading files...%reset%
-    curl -fsSL "%REQ_URL%" -o "VocabPy\requirements.txt" || (echo %red%Failed to download requirements.txt%reset% & exit /b 1)
-    curl -fsSL "%MAIN_URL%" -o "VocabPy\main.py" || (echo %red%Failed to download main.py%reset% & exit /b 1)
-    curl -fsSL "%CREATE_URL%" -o "VocabPy\create_vocab_file.py" || (echo %red%Failed to download create_vocab_file.py%reset% & exit /b 1)
+    curl -fsSL "%REQ_URL%" -o "LexiconPro\requirements.txt" || (echo %red%Failed to download requirements.txt%reset% & exit /b 1)
+    curl -fsSL "%MAIN_URL%" -o "LexiconPro\main.py" || (echo %red%Failed to download main.py%reset% & exit /b 1)
+    curl -fsSL "%CREATE_URL%" -o "LexiconPro\create_vocab_file.py" || (echo %red%Failed to download create_vocab_file.py%reset% & exit /b 1)
 ) else (
     echo %yellow%curl not found — using PowerShell...%reset%
-    powershell -NoLogo -Command "Invoke-WebRequest '%REQ_URL%' -OutFile 'VocabPy\requirements.txt'" || (echo %red%Failed to download requirements.txt%reset% & exit /b 1)
-    powershell -NoLogo -Command "Invoke-WebRequest '%MAIN_URL%' -OutFile 'VocabPy\main.py'" || (echo %red%Failed to download main.py%reset% & exit /b 1)
-    powershell -NoLogo -Command "Invoke-WebRequest '%CREATE_URL%' -OutFile 'VocabPy\create_vocab_file.py'" || (echo %red%Failed to download create_vocab_file.py%reset% & exit /b 1)
+    powershell -NoLogo -Command "Invoke-WebRequest '%REQ_URL%' -OutFile 'LexiconPro\requirements.txt'" || (echo %red%Failed to download requirements.txt%reset% & exit /b 1)
+    powershell -NoLogo -Command "Invoke-WebRequest '%MAIN_URL%' -OutFile 'LexiconPro\main.py'" || (echo %red%Failed to download main.py%reset% & exit /b 1)
+    powershell -NoLogo -Command "Invoke-WebRequest '%CREATE_URL%' -OutFile 'LexiconPro\create_vocab_file.py'" || (echo %red%Failed to download create_vocab_file.py%reset% & exit /b 1)
 )
 
 :: Verify downloads
-if not exist VocabPy\requirements.txt (echo %red%ERROR: requirements.txt missing.%reset% & exit /b 1)
-if not exist VocabPy\main.py (echo %red%ERROR: main.py missing.%reset% & exit /b 1)
-if not exist VocabPy\create_vocab_file.py (echo %red%ERROR: create_vocab_file.py missing.%reset% & exit /b 1)
+if not exist LexiconPro\requirements.txt (echo %red%ERROR: requirements.txt missing.%reset% & exit /b 1)
+if not exist LexiconPro\main.py (echo %red%ERROR: main.py missing.%reset% & exit /b 1)
+if not exist LexiconPro\create_vocab_file.py (echo %red%ERROR: create_vocab_file.py missing.%reset% & exit /b 1)
 
 echo.
 echo %yellow%Creating virtual environment...%reset%
-python -m venv VocabPy\venv || (echo %red%Failed to create venv%reset% & exit /b 1)
+python -m venv LexiconPro\venv || (echo %red%Failed to create venv%reset% & exit /b 1)
 
-if exist VocabPy\venv\Scripts\python.exe (
-    set "PY=VocabPy\venv\Scripts\python.exe"
+if exist LexiconPro\venv\Scripts\python.exe (
+    set "PY=LexiconPro\venv\Scripts\python.exe"
 ) else (
     echo %red%ERROR: Could not find Python in venv.%reset%
     exit /b 1
@@ -80,20 +80,20 @@ echo %yellow%Upgrading pip...%reset%
 "%PY%" -m pip install --upgrade pip || (echo %red%Failed to upgrade pip%reset% & exit /b 1)
 
 echo %yellow%Installing dependencies...%reset%
-"%PY%" -m pip install -r VocabPy\requirements.txt || (echo %red%Failed to install dependencies%reset% & exit /b 1)
+"%PY%" -m pip install -r LexiconPro\requirements.txt || (echo %red%Failed to install dependencies%reset% & exit /b 1)
 
 echo.
 echo %green%===============================%reset%
 echo %green%   Installation complete!%reset%
-echo %green%   Launching VocabPy...%reset%
+echo %green%   Launching LexiconPro...%reset%
 echo %green%===============================%reset%
 echo.
 
-"%PY%" VocabPy\main.py || (echo %red%ERROR: Failed to launch VocabPy.%reset% & exit /b 1)
+"%PY%" LexiconPro\main.py || (echo %red%ERROR: Failed to launch LexiconPro.%reset% & exit /b 1)
 
 echo.
 echo Done!
 echo To run again:
-echo   VocabPy\venv\Scripts\python.exe VocabPy\main.py
+echo   LexiconPro\venv\Scripts\python.exe LexiconPro\main.py
 
 endlocal

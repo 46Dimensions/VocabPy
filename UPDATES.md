@@ -1,5 +1,5 @@
-# VocabPy - Updates
-VocabPy is regularly updated. Below is a list of recent updates.
+# LexiconPro - Updates
+LexiconPro is regularly updated. Below is a list of recent updates.
 
 ## v1.1.0
 Released: 19th November 2025
@@ -48,3 +48,10 @@ Released: 22nd November 2025
 - Runs `main.py` without activating Virtual Environment first (activation is unnecessary)
 #### Specific changes for Unix installer
 - Now runs `cd VocabPy` after creating it to make sure everything is in that directory
+
+## LexiconPro - v1.1.2
+Released: 22nd November 2025
+### Repository
+- Renamed to `46Dimensions/LexiconPro`
+### All files
+- Changed all instances of `VocabPy` (except some in this file) to `LexiconPro`
