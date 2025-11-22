@@ -46,3 +46,5 @@ Released: 22nd November 2025
 - Made the errorlevel check safer
 - Made all paths consistent
 - Runs `main.py` without activating Virtual Environment first (activation is unnecessary)
+##### Specific changes for Unix installer
+- Now runs `cd VocabPy` after creating it to make sure everything is in that directory

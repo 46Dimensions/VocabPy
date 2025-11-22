@@ -37,21 +37,22 @@ check_python
 
 echo "${yellow}Creating VocabPy directory...${reset}"
 mkdir -p VocabPy
+cd VocabPy || { echo "${red}Failed to enter VocabPy directory${reset}"; exit 1; }
 
 echo "${yellow}Downloading files...${reset}"
-curl -fsSL "$REQ_URL" -o VocabPy/requirements.txt || { echo "${red}Failed to download requirements.txt${reset}"; exit 1; }
-curl -fsSL "$MAIN_URL" -o VocabPy/main.py || { echo "${red}Failed to download main.py${reset}"; exit 1; }
-curl -fsSL "$CREATE_URL" -o VocabPy/create_vocab_file.py || { echo "${red}Failed to download create_vocab_file.py${reset}"; exit 1; }
+curl -fsSL "$REQ_URL" -o requirements.txt || { echo "${red}Failed to download requirements.txt${reset}"; exit 1; }
+curl -fsSL "$MAIN_URL" -o main.py || { echo "${red}Failed to download main.py${reset}"; exit 1; }
+curl -fsSL "$CREATE_URL" -o create_vocab_file.py || { echo "${red}Failed to download create_vocab_file.py${reset}"; exit 1; }
 
-[ -f VocabPy/requirements.txt ] || { echo "${red}requirements.txt missing${reset}"; exit 1; }
-[ -f VocabPy/main.py ] || { echo "${red}main.py missing${reset}"; exit 1; }
-[ -f VocabPy/create_vocab_file.py ] || { echo "${red}create_vocab_file.py missing${reset}"; exit 1; }
+[ -f requirements.txt ] || { echo "${red}requirements.txt missing${reset}"; exit 1; }
+[ -f main.py ] || { echo "${red}main.py missing${reset}"; exit 1; }
+[ -f create_vocab_file.py ] || { echo "${red}create_vocab_file.py missing${reset}"; exit 1; }
 
 echo "${yellow}Creating virtual environment...${reset}"
-python3 -m venv VocabPy/venv || { echo "${red}Failed to create venv${reset}"; exit 1; }
+python3 -m venv venv || { echo "${red}Failed to create venv${reset}"; exit 1; }
 
-if [ -f "VocabPy/venv/bin/python3" ]; then
-    PY="VocabPy/venv/bin/python3"
+if [ -f "venv/bin/python3" ]; then
+    PY="venv/bin/python3"
 else
     echo "${red}Could not find Python binary in venv${reset}"
     exit 1
@@ -61,7 +62,7 @@ echo "${yellow}Upgrading pip...${reset}"
 "$PY" -m pip install --upgrade pip || { echo "${red}Failed to upgrade pip${reset}"; exit 1; }
 
 echo "${yellow}Installing dependencies...${reset}"
-"$PY" -m pip install -r VocabPy/requirements.txt || { echo "${red}Failed to install dependencies${reset}"; exit 1; }
+"$PY" -m pip install -r requirements.txt || { echo "${red}Failed to install dependencies${reset}"; exit 1; }
 
 echo
 echo "${green}===============================${reset}"
@@ -70,7 +71,7 @@ echo "${green}   Launching VocabPy...${reset}"
 echo "${green}===============================${reset}"
 echo
 
-"$PY" VocabPy/main.py || { echo "${red}Failed to launch VocabPy${reset}"; exit 1; }
+"$PY" main.py || { echo "${red}Failed to launch VocabPy${reset}"; exit 1; }
 
 echo
 echo "Done!"
