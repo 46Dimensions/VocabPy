@@ -1,6 +1,6 @@
 # VocabPy
 A Python-based foreign vocabulary learning tool.   
-[View updates](updates.md)
+[View updates](UPDATES.md)
 
 ## Installation
 Run these commands in your terminal.  
