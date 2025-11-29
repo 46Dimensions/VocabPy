@@ -63,7 +63,7 @@ def read_json(path: str) -> Dict:
     Returns
     -------
     Dict
-        The Python object resulting from  `json.load `.
+        The Python object resulting from  `json.load`.
     """
     with open(path, encoding="utf-8") as f:
         return dict(json.load(f))
@@ -90,7 +90,6 @@ def clear_lines(lines: int) -> None:
     # Return cursor to the starting line
     sys.stdout.write(Cursor.UP(lines))
     sys.stdout.flush()
-
 
 def dynamic_print(text: str):
     """
