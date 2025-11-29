@@ -517,7 +517,7 @@ def main() -> None:
     # `0` signals that no files were found (see `get_file_number` impl.).
     if chosen_file_number == 0:
         print(f"{Fore.YELLOW}It seems like there are no vocabulary files.{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}Use the vocab file creator (create_vocab_file.py) to make one!{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}Use the vocab file creator ('vocabularyplus create') to make one!{Style.RESET_ALL}")
         time.sleep(5)
         sys.exit(0)
 
