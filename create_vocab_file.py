@@ -168,7 +168,7 @@ def main() -> None:
             nonlocal valid
             valid = True
             # Get the number of words from the user
-            user_input = check_input("How many words are in the vocab list? ")
+            user_input = check_input(f"{Fore.BLUE}How many words are in the vocab list? {Style.RESET_ALL}")
 
             # If it is not a digit, set `valid` to False
             if not user_input.isdigit():
