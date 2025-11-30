@@ -1,7 +1,7 @@
 # Vocabulary Plus - Updates
 Vocabulary Plus is regularly updated. Below is a list of recent updates (0.1.1 to 1.0.1).
 
-## v0.1.1
+## VocabPy - v0.1.1
 Released: 19th November 2025
 
 ### Markdown Descriptions
