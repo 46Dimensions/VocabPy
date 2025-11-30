@@ -246,6 +246,8 @@ def main() -> None:
 if __name__ == "__main__":
     try:
         main()
+    except KeyboardInterrupt:
+        on_keyboard_interrupt()
     except Exception as e:
         print(f"{Fore.RED}Error: {e}{Style.RESET_ALL}")
         print(f"{Fore.RED}Report it at https://github.com/46Dimensions/VocabularyPlus/issues/new.{Style.RESET_ALL}")
