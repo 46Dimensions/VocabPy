@@ -91,7 +91,10 @@ Released: 30th November 2025
 ### Create Vocab File
 - Made colours consistent
 - Properly implemented `KeyboardInterrupt` handling
-### Windows Installer
+- System information print edited to align with Main
+### Installation Scripts
+- Added version print
+#### Windows Installer
 - Changed accidental use of 'color' to 'colour'
 ### Markdown Descriptions
 - Renamed UPDATES.md to updates.md
