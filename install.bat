@@ -9,7 +9,7 @@ set "yellow=%ESC%[33m"
 set "reset=%ESC%[0m"
 
 echo %green%=======================================%reset%
-echo %green%Vocabulary Plus Windows Installer 1.0.1%reset%
+echo %green%Vocabulary Plus Windows Installer 1.0.2%reset%
 echo %green%=======================================%reset%
 echo.
 
@@ -68,10 +68,9 @@ echo %yellow%Upgrading pip...%reset%
 
 echo %yellow%Installing dependencies...%reset%
 "%PY%" -m pip install -r "%INSTALL_DIR%\requirements.txt"
-:: Remove requirements.txt file after installation
 del "%INSTALL_DIR%\requirements.txt"
 
-:: Create portable launcher batch file
+:: Create main launcher batch file
 set "LAUNCHER=%LAUNCHER_DIR%\vocabularyplus.bat"
 echo %yellow%Creating launcher at %LAUNCHER%...%reset%
 (
@@ -86,16 +85,25 @@ echo     "%%PY%%" "%%INSTALL_DIR%%\main.py" %%*
 echo )
 ) > "%LAUNCHER%"
 
+:: Create alias batch file "vp.bat"
+set "ALIAS=%LAUNCHER_DIR%\vp.bat"
+echo %yellow%Creating alias launcher at %ALIAS%...%reset%
+(
+echo @echo off
+echo call "%LAUNCHER%" %%*
+) > "%ALIAS%"
+
 :: Add launcher directory to PATH for current session
 set "PATH=%LAUNCHER_DIR%;%PATH%"
 
 echo.
-echo %green%Vocabulary Plus 1.0.1 installed successfully%reset%
+echo %green%Vocabulary Plus 1.0.2 installed successfully%reset%
 echo You can now run:
 echo   vocabularyplus           ^> runs main.py
 echo   vocabularyplus create    ^> runs create_vocab_file.py
+echo   vp                       ^> you can run this instead of vocabularyplus
+echo   vp create                ^> you can run this instead of vocabularyplus create
 echo.
-
-echo To make the command permanent, add the following to your user PATH:
+echo To make the commands permanent, add the following to your user PATH:
 echo   %LAUNCHER_DIR%
 echo (via System Properties -> Environment Variables)

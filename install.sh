@@ -8,7 +8,7 @@ yellow="\033[33m"
 reset="\033[0m"
 
 echo "${green}====================================${reset}"
-echo "${green}Vocabulary Plus Unix Installer 1.0.1${reset}"
+echo "${green}Vocabulary Plus Unix Installer 1.0.2${reset}"
 echo "${green}====================================${reset}"
 echo
 
@@ -56,7 +56,6 @@ echo "${yellow}Upgrading pip...${reset}"
 
 echo "${yellow}Installing dependencies...${reset}"
 "$PY" -m pip install -r requirements.txt
-# Remove the requirements.txt file after installation
 rm requirements.txt
 
 # Create portable launcher in ~/.local/bin
@@ -66,19 +65,13 @@ mkdir -p "$(dirname "$LAUNCHER")"
 echo "${yellow}Creating launcher script at $LAUNCHER...${reset}"
 cat > "$LAUNCHER" <<'EOF'
 #!/usr/bin/env sh
-# Determine the real directory of this script
-SCRIPT_DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd)"
-# Assume VocabularyPlus is in the same parent directory as this launcher
-
 if [ -d "$HOME/VocabularyPlus/venv" ]; then
     BASE_DIR="$HOME/VocabularyPlus"
 else
     echo "ERROR: Could not find VocabularyPlus directory at \$HOME/VocabularyPlus"
     exit 1
 fi
-
 PY="$BASE_DIR/venv/bin/python3"
-
 case "$1" in
   create)
     shift
@@ -92,11 +85,17 @@ EOF
 
 chmod +x "$LAUNCHER"
 
+# Create the alias symlink "vp" pointing to "vocabularyplus"
+ALIAS="$HOME/.local/bin/vp"
+ln -sf "$LAUNCHER" "$ALIAS"
+
 echo
-echo "${green}Vocabulary Plus 1.0.1 installed successfully${reset}"
+echo "${green}Vocabulary Plus 1.0.2 installed successfully${reset}"
 echo "You can now run:"
 echo "  vocabularyplus           # Runs main.py"
 echo "  vocabularyplus create    # Runs create_vocab_file.py"
+echo "  vp                       # alias for vocabularyplus"
+echo "  vp create                # alias for vocabularyplus create"
 echo
 echo "Make sure ~/.local/bin is in your PATH:"
 echo "  export PATH=\"\$HOME/.local/bin:\$PATH\""

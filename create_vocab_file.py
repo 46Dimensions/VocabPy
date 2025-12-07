@@ -21,7 +21,7 @@ init(autoreset=False)
 
 # Print system information
 print(f"{Fore.GREEN}Running with Python {platform.python_version()} on {platform.system()}.{Style.RESET_ALL}")
-print(f"{Fore.GREEN}Vocabulary Plus Version: 1.0.1{Style.RESET_ALL}")
+print(f"{Fore.GREEN}Vocabulary Plus Version: 1.0.2{Style.RESET_ALL}")
 print(f"{Fore.RED}Press CTRL+C to quit.{Style.RESET_ALL}\n")
 time.sleep(0.5)
 
@@ -153,8 +153,8 @@ def main() -> None:
     }
 
     # Get the languages of the vocabulary
-    learning = check_input(f"{Fore.BLUE}What language are you learning? {Style.RESET_ALL}")
-    spoken = check_input(f"{Fore.BLUE}What language do you speak? {Style.RESET_ALL}")
+    learning = check_input(f"{Fore.LIGHTCYAN_EX}What language are you learning? {Style.RESET_ALL}")
+    spoken = check_input(f"{Fore.LIGHTCYAN_EX}What language do you speak? {Style.RESET_ALL}")
     # Save the language data in `data["languages"]`
     data["languages"] = {
         "learning": learning,
@@ -171,7 +171,7 @@ def main() -> None:
             nonlocal valid
             valid = True
             # Get the number of words from the user
-            user_input = check_input(f"{Fore.BLUE}How many words are in the vocab list? {Style.RESET_ALL}")
+            user_input = check_input(f"{Fore.LIGHTCYAN_EX}How many words are in the vocab list? {Style.RESET_ALL}")
 
             # If it is not a digit, set `valid` to False
             if not user_input.isdigit():
@@ -197,16 +197,16 @@ def main() -> None:
     words = []
 
     # Get the first word and its meaning then add it to `words`
-    lang1_word = dynamic_input(f"{Fore.BLUE}What is the first {learning} word in the vocab list? {Style.RESET_ALL}")
-    translated = dynamic_input(f"{Fore.BLUE}What is {lang1_word} in {spoken}? {Style.RESET_ALL}")
+    lang1_word = dynamic_input(f"{Fore.LIGHTCYAN_EX}What is the first {learning} word in the vocab list? {Style.RESET_ALL}")
+    translated = dynamic_input(f"{Fore.LIGHTCYAN_EX}What is {lang1_word} in {spoken}? {Style.RESET_ALL}")
     words.append([lang1_word, translated])
     time.sleep(0.5)
     clear_lines(2)
 
     # Get the other word/meaning pairs
     for i in range(int(num_words) - 1):
-        lang1_word = dynamic_input(f"{Fore.BLUE}What is the first {learning} word in the vocab list? {Style.RESET_ALL}")
-        translated = dynamic_input(f"{Fore.BLUE}What is {lang1_word} in {spoken}? {Style.RESET_ALL}")
+        lang1_word = dynamic_input(f"{Fore.LIGHTCYAN_EX}What is the first {learning} word in the vocab list? {Style.RESET_ALL}")
+        translated = dynamic_input(f"{Fore.LIGHTCYAN_EX}What is {lang1_word} in {spoken}? {Style.RESET_ALL}")
         words.append([lang1_word, translated])
         time.sleep(0.5)
         clear_lines(2)
@@ -217,7 +217,7 @@ def main() -> None:
         item2 = words[i][1] # The word in the other language
         data["words"][item1] = item2 # `item1: item2`
 
-    filename = check_input(f"{Fore.BLUE}What would you like the vocab file to be called? {Style.RESET_ALL}") # The name the user desires for the JSON file
+    filename = check_input(f"{Fore.LIGHTCYAN_EX}What would you like the vocab file to be called? {Style.RESET_ALL}") # The name the user desires for the JSON file
 
     # Check if the filename would work on Windows
     if platform.system() == "Windows":

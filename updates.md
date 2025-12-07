@@ -1,5 +1,5 @@
 # Vocabulary Plus - Updates
-Vocabulary Plus is regularly updated. Below is a list of recent updates (0.1.1 to 1.0.1).
+Vocabulary Plus is regularly updated. Below is a list of recent updates (0.1.1 to 1.0.2).
 
 ## VocabPy - v0.1.1
 Released: 19th November 2025
@@ -99,3 +99,10 @@ Released: 30th November 2025
 ### Markdown Descriptions
 - Renamed UPDATES.md to updates.md
 - Edited link to updates in README
+
+## v1.0.2
+Released: 7th December 2025
+### Python scripts
+- Changed blue colour to light cyan for easy readability on a black background
+### Installation Scripts
+- Added new `vp` alias for the `vocabularyplus` command
