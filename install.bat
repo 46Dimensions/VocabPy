@@ -9,7 +9,7 @@ set "yellow=%ESC%[33m"
 set "reset=%ESC%[0m"
 
 echo %green%=======================================%reset%
-echo %green%Vocabulary Plus Windows Installer 1.0.3%reset%
+echo %green%Vocabulary Plus Windows Installer 1.0.2%reset%
 echo %green%=======================================%reset%
 echo.
 
@@ -18,22 +18,6 @@ set "BASE_URL=https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main
 set "REQ_URL=%BASE_URL%/requirements.txt"
 set "MAIN_URL=%BASE_URL%/main.py"
 set "CREATE_URL=%BASE_URL%/create_vocab_file.py"
-set "ICON_URL=%BASE_URL%/app_icon.png"
-
-:: Check for Windows 10 or newer
-for /f "tokens=4-5 delims=. " %%a in ('ver') do (
-    set "major=%%a"
-    set "minor=%%b"
-)
-
-:: Windows 10 has major version 10
-if %major% LSS 10 (
-    echo %red%This installer requires Windows 10 or later.%reset%
-    echo Your Windows version appears to be older than Windows 10.
-    exit /b 1
-)
-
-echo %green%Windows version OK (Windows 10+ detected).%reset%
 
 :: Check Python
 where python >nul 2>nul
@@ -68,7 +52,6 @@ echo %yellow%Downloading files...%reset%
 curl -fsSL "%REQ_URL%" -o "%INSTALL_DIR%\requirements.txt" 2>nul || powershell -NoLogo -Command "Invoke-WebRequest '%REQ_URL%' -OutFile '%INSTALL_DIR%\requirements.txt'"
 curl -fsSL "%MAIN_URL%" -o "%INSTALL_DIR%\main.py" 2>nul || powershell -NoLogo -Command "Invoke-WebRequest '%MAIN_URL%' -OutFile '%INSTALL_DIR%\main.py'"
 curl -fsSL "%CREATE_URL%" -o "%INSTALL_DIR%\create_vocab_file.py" 2>nul || powershell -NoLogo -Command "Invoke-WebRequest '%CREATE_URL%' -OutFile '%INSTALL_DIR%\create_vocab_file.py'"
-curl -fsSL "%ICON_URL%" -o "%INSTALL_DIR%\app_icon.png" 2>nul || powershell -NoLogo -Command "Invoke-WebRequest '%ICON_URL%' -OutFile '%INSTALL_DIR%\app_icon.png'"
 
 :: Create virtual environment
 echo %yellow%Creating virtual environment...%reset%
@@ -113,43 +96,14 @@ echo call "%LAUNCHER%" %%*
 :: Add launcher directory to PATH for current session
 set "PATH=%LAUNCHER_DIR%;%PATH%"
 
-echo %yellow%Creating Windows shortcuts...%reset%
-
-:: Uses PowerShell to create .lnk files with icons
-set "SHORTCUT_TARGET=%LAUNCHER%"
-set "SHORTCUT_ICON=%INSTALL_DIR%\app_icon.png"
-
-:: Start Menu folder
-set "STARTMENU=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Vocabulary Plus"
-
-mkdir "%STARTMENU%" 2>nul
-
-:: Create Start Menu shortcut
-powershell -command ^
-   "$s=(New-Object -COM WScript.Shell).CreateShortcut('%STARTMENU%\Vocabulary Plus.lnk');" ^
-   "$s.TargetPath='%SHORTCUT_TARGET%';" ^
-   "$s.IconLocation='%SHORTCUT_ICON%';" ^
-   "$s.Save()"
-
-:: Create Desktop shortcut
-powershell -command ^
-   "$s=(New-Object -COM WScript.Shell).CreateShortcut('$env:USERPROFILE\Desktop\Vocabulary Plus.lnk');" ^
-   "$s.TargetPath='%SHORTCUT_TARGET%';" ^
-   "$s.IconLocation='%SHORTCUT_ICON%';" ^
-   "$s.Save()"
-
 echo.
-echo %green%Vocabulary Plus 1.0.3 installed successfully%reset%
+echo %green%Vocabulary Plus 1.0.2 installed successfully%reset%
 echo You can now run:
-echo   vocabularyplus
-echo   vocabularyplus create
-echo   vp
-echo   vp create
+echo   vocabularyplus           ^> runs main.py
+echo   vocabularyplus create    ^> runs create_vocab_file.py
+echo   vp                       ^> you can run this instead of vocabularyplus
+echo   vp create                ^> you can run this instead of vocabularyplus create
 echo.
-echo Start Menu and Desktop shortcuts have been created.
-echo No PATH changes are strictly required anymore.
-echo.
-echo %yellow%If you want to uninstall, just delete:%reset%
-echo   %INSTALL_DIR%
+echo To make the commands permanent, add the following to your user PATH:
 echo   %LAUNCHER_DIR%
-echo   The Start Menu and Desktop shortcuts
+echo (via System Properties -> Environment Variables)
