@@ -85,18 +85,6 @@ else
     exit 1
 fi
 
-# Handle create subcommand
-PY="$INSTALL_DIR/venv/bin/python3"
-case "\$1" in
-  create)
-    shift
-    "\$PY" "$INSTALL_DIR/create_vocab_file.py" "\$@"
-    ;;
-  *)
-    "\$PY" "$INSTALL_DIR/main.py" "\$@"
-    ;;
-esac
-
 # Handle --version flag
 if [ "\$1" = "--version" ] || [ "\$1" = "-v" ]; then
     echo 1.1.0
@@ -114,6 +102,18 @@ if [ "\$1" = "--help" ] then
     echo Alias: vp
     exit 0
 fi
+
+# Handle create subcommand
+PY="$INSTALL_DIR/venv/bin/python3"
+case "\$1" in
+  create)
+    shift
+    "\$PY" "$INSTALL_DIR/create_vocab_file.py" "\$@"
+    ;;
+  *)
+    "\$PY" "$INSTALL_DIR/main.py" "\$@"
+    ;;
+esac
 EOF
 
 chmod +x "$LAUNCHER"
