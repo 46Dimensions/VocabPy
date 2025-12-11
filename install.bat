@@ -55,7 +55,7 @@ if not errorlevel 1 (
 )
 
 :: Paths + download URLs
-set "BASE_URL=https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/desktop_app"
+set "BASE_URL=https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main"
 set "REQ_URL=%BASE_URL%/requirements.txt"
 set "MAIN_URL=%BASE_URL%/main.py"
 set "CREATE_URL=%BASE_URL%/create_vocab_file.py"
