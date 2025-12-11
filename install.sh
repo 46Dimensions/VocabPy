@@ -77,6 +77,7 @@ cat > "$LAUNCHER" <<EOF
 #!/usr/bin/env sh
 set -e
 
+# Check for venv in $INSTALL_DIR
 if [ -d "$INSTALL_DIR/venv" ]; then
     BASE_DIR="$INSTALL_DIR"
 else
@@ -84,8 +85,34 @@ else
     exit 1
 fi
 
-PY="$INSTALL_DIR/venv/bin/python3"
+# Handle --version flag
+if [ "\$1" = "--version" ] || [ "\$1" = "-v" ]; then
+    echo 1.1.0
+    exit 0
+fi
 
+# Handle --help flag
+if [ "\$1" = "--help" ]; then
+    echo "Usage: vocabularyplus [create] [options]"
+    echo "Commands:"
+    echo "  create        Create a new vocabulary file"
+    echo "  uninstall     Uninstall Vocabulary Plus"
+    echo "Options:"
+    echo "  -v, --version   Show version information"
+    echo "  --help          Show this help message"
+    echo "Alias:"
+    echo "  vp            Shortcut for vocabularyplus"
+    exit 0
+fi
+
+# Handle uninstall subcommand
+if [ "\$1" = "uninstall" ]; then
+    echo "${yellow}Running uninstaller...${reset}"
+    /usr/bin/env sh $INSTALL_DIR/uninstall
+fi
+
+# Handle create subcommand
+PY="$INSTALL_DIR/venv/bin/python3"
 case "\$1" in
   create)
     shift
