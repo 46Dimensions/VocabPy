@@ -109,9 +109,7 @@ echo )
 :: Create alias "vp"
 echo @echo off ^& "%LAUNCHER%" %%* > "%BIN_DIR%\vp.cmd"
 
-:: ---------------------------------------------------
 :: Start Menu Shortcut
-:: ---------------------------------------------------
 echo %yellow%Creating Start Menu shortcut...%reset%
 
 set "SM_DIR=%APPDATA%\Microsoft\Windows\Start Menu\Programs"
