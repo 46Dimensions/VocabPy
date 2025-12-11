@@ -8,14 +8,12 @@ set "green=%ESC%[32m"
 set "yellow=%ESC%[33m"
 set "reset=%ESC%[0m"
 
-echo %green%====================================%reset%
+echo %green%=======================================%reset%
 echo %green%Vocabulary Plus Windows Installer 1.0.2%reset%
-echo %green%====================================%reset%
+echo %green%=======================================%reset%
 echo.
 
-:: ---------------------------------------------------
 :: Windows 10+ Check
-:: ---------------------------------------------------
 for /f "tokens=4-5 delims=. " %%a in ('ver') do (
     set MAJOR=%%a
 )
@@ -26,9 +24,7 @@ if "%MAJOR%" LSS "10" (
     exit /b 1
 )
 
-:: ---------------------------------------------------
 :: Python Check
-:: ---------------------------------------------------
 where python >nul 2>&1
 if errorlevel 1 (
     echo %red%ERROR: Python not found. Please install Python 3.10+.%reset%
@@ -123,9 +119,7 @@ powershell -NoProfile -Command ^
 
 echo %green%Start Menu shortcut created successfully.%reset%
 
-:: ---------------------------------------------------
 :: Final message
-:: ---------------------------------------------------
 echo.
 echo %green%Vocabulary Plus 1.0.2 installed successfully!%reset%
 echo.
