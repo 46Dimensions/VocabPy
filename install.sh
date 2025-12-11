@@ -99,7 +99,8 @@ if [ "\$1" = "--help" ]; then
     echo "Options:"
     echo "  -v, --version   Show version information"
     echo "  --help          Show this help message"
-    echo Alias: vp
+    echo "Alias:"
+    echo "  vp            Shortcut for vocabularyplus"
     exit 0
 fi
 
