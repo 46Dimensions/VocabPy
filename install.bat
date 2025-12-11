@@ -108,6 +108,7 @@ echo if "%%1"=="--help" (
     echo echo "Usage: vocabularyplus [create] [options]"
     echo echo "Commands:"
     echo echo "  create        Create a new vocabulary file"
+    echo echo "  uninstall     Uninstall Vocabulary Plus"
     echo echo "Options:"
     echo echo "  -v, --version   Show version information"
     echo echo "  --help          Show this help message"
