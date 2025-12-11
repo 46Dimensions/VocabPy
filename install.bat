@@ -102,14 +102,6 @@ echo @echo off
 echo set "PY=%INSTALL_DIR%\venv\Scripts\python.exe"
 echo set "APPDIR=%INSTALL_DIR%"
 echo.
-:: Handle "create" command
-echo if "%%1"=="create" (
-echo     shift
-echo     "%%PY%%" "%%APPDIR%%\create_vocab_file.py" %%%%*
-echo ) else (
-echo     "%%PY%%" "%%APPDIR%%\main.py" %%%%*
-echo )
-echo.
 :: Help option
 echo if "%%1"=="--help" (
     echo echo.
@@ -130,6 +122,22 @@ if "%1"=="--version" (
 ) else if "%1"=="-v" (
   echo 1.1.0
 )
+echo.
+:: Handle "uninstall" subcommand
+echo if "%%1"=="uninstall" (
+echo     echo %yellow%Starting uninstallation...%reset%
+echo     "%%APPDIR%%\uninstall.cmd"
+echo     exit /b 0
+echo ) 
+echo.
+:: Handle "create" subcommand
+echo if "%%1"=="create" (
+echo     shift
+echo     "%%PY%%" "%%APPDIR%%\create_vocab_file.py" %%%%*
+echo ) else (
+echo     "%%PY%%" "%%APPDIR%%\main.py" %%%%*
+echo )
+echo.
 ) > "%LAUNCHER%"
 echo %green%Launcher created successfully.%reset%
 
