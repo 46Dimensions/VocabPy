@@ -102,12 +102,34 @@ echo @echo off
 echo set "PY=%INSTALL_DIR%\venv\Scripts\python.exe"
 echo set "APPDIR=%INSTALL_DIR%"
 echo.
+:: Handle "create" command
 echo if "%%1"=="create" (
 echo     shift
 echo     "%%PY%%" "%%APPDIR%%\create_vocab_file.py" %%%%*
 echo ) else (
 echo     "%%PY%%" "%%APPDIR%%\main.py" %%%%*
 echo )
+echo.
+:: Help option
+echo if "%%1"=="--help" (
+    echo echo.
+    echo echo "Usage: vocabularyplus [create] [options]"
+    echo echo "Commands:"
+    echo echo "  create        Create a new vocabulary file"
+    echo echo "Options:"
+    echo echo "  -v, --version   Show version information"
+    echo echo "  --help          Show this help message"
+    echo echo "Alias:"
+    echo echo "  vp            Shortcut for vocabularyplus"
+    exit /b 0
+)
+echo.
+:: Version option
+if "%1"=="--version" (
+  echo 1.1.0
+) else if "%1"=="-v" (
+  echo 1.1.0
+)
 ) > "%LAUNCHER%"
 echo %green%Launcher created successfully.%reset%
 
