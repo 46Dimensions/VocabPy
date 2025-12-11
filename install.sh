@@ -130,7 +130,7 @@ echo "${green}Launchers removed.${reset}"
 # Remove Linux .desktop entry
 if [ "$(uname)" = "Linux" ]; then
     echo "${yellow}Removing .desktop entry...${reset}"
-    rm -f $HOME/.local/share/applications/vocabularyplus.desktop" 2>/dev/null || true
+    rm -f "$HOME/.local/share/applications/vocabularyplus.desktop" 2>/dev/null || true
     echo "${green}Linux desktop entry removed.${reset}"
 fi
 
