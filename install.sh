@@ -77,6 +77,7 @@ cat > "$LAUNCHER" <<EOF
 #!/usr/bin/env sh
 set -e
 
+# Check for venv in $INSTALL_DIR
 if [ -d "$INSTALL_DIR/venv" ]; then
     BASE_DIR="$INSTALL_DIR"
 else
@@ -84,8 +85,8 @@ else
     exit 1
 fi
 
+# Handle create subcommand
 PY="$INSTALL_DIR/venv/bin/python3"
-
 case "\$1" in
   create)
     shift
@@ -95,6 +96,24 @@ case "\$1" in
     "\$PY" "$INSTALL_DIR/main.py" "\$@"
     ;;
 esac
+
+# Handle --version flag
+if [ "\$1" = "--version" ] || [ "\$1" = "-v" ]; then
+    echo 1.1.0
+    exit 0
+fi
+
+# Handle --help flag
+if [ "\$1" = "--help" ] then
+    echo "Usage: vocabularyplus [create] [options]"
+    echo "Commands:"
+    echo "  create        Create a new vocabulary file"
+    echo "Options:"
+    echo "  -v, --version   Show version information"
+    echo "  --help          Show this help message"
+    echo Alias: vp
+    exit 0
+fi
 EOF
 
 chmod +x "$LAUNCHER"
