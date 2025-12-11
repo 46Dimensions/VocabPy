@@ -56,4 +56,18 @@ Released: 11th December 2025
 - Edited method of installation for Unix
 - Added instructions on uninstallation
 
-[_View on GitHub_](https://github.com/46Dimensions/VocabularyPlus/releases/v1.1.0)
+[_View on GitHub_](https://github.com/46Dimensions/VocabularyPlus/releases/v1.1)
+
+## v1.2.0
+Released: 11th December 2025
+### Terminal Commands
+- Added flags
+    - `--help`
+    - `--version`
+- Added subcommand `uninstall`
+### Installation Scripts
+- Added download of [README](README.md)
+### Other
+- Added [contribution instructions](CONTRIBUTING.md).
+
+[_View on GitHub_](https://github.com/46Dimensions/VocabularyPlus/releases/v1.2.0)
