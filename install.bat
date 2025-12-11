@@ -105,6 +105,64 @@ echo )
 :: Create alias "vp"
 echo @echo off ^& "%LAUNCHER%" %%* > "%BIN_DIR%\vp.cmd"
 
+:: Create uninstall script
+set "UNINSTALLER=%INSTALL_DIR%\uninstall.cmd"
+echo %yellow%Creating uninstaller script at %UNINSTALLER%...%reset%
+
+(
+echo @echo off
+echo setlocal ENABLEDELAYEDEXPANSION
+
+echo echo %green%=========================================%reset%
+echo echo %green%Vocabulary Plus Windows Uninstaller 1.0.2%reset%
+echo echo %green%=========================================%reset%
+echo echo.
+
+echo echo %yellow%Removing VocabularyPlus installation...%reset%
+
+echo cd "%INSTALL_DIR%" ^>nul 2^>^&1
+echo if not %%errorlevel%%==0 (
+echo ^    echo %red%Failed to enter VocabularyPlus directory%reset%
+echo ^    exit /b 1
+echo )
+
+echo :: Remove files
+echo del /q main.py 2^>nul
+echo del /q create_vocab_file.py 2^>nul
+echo del /q app_icon.png 2^>nul
+echo del /q requirements.txt 2^>nul
+
+echo :: Remove directories
+echo rmdir /s /q JSON 2^>nul
+echo rmdir /s /q venv 2^>nul
+
+echo echo %green%VocabularyPlus files and directories removed.%reset%
+
+echo echo %yellow%Removing launchers...%reset%
+
+echo del /q "%USERPROFILE%\AppData\Local\Programs\VocabularyPlus\vocabularyplus.cmd" 2^>nul
+echo del /q "%USERPROFILE%\AppData\Local\Programs\VocabularyPlus\vp.cmd" 2^>nul
+
+echo echo %green%Launchers removed.%reset%
+
+echo echo %yellow%Removing Start Menu shortcuts...%reset%
+
+echo del /q "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Vocabulary Plus.lnk" 2^>nul
+echo del /q "%APPDATA%\Microsoft\Windows\Start Menu\Programs\vp.lnk" 2^>nul
+
+echo echo %green%Shortcuts removed.%reset%
+
+echo echo.
+echo echo %green%Uninstallation complete.%reset%
+echo echo %yellow%If you found any issues, report them at https://github.com/46Dimensions/VocabularyPlus/issues %reset%
+
+echo cd ..
+echo rmdir /s /q "%INSTALL_DIR%" 2^>nul
+echo del /q install.bat 2^>nul
+) > "%UNINSTALLER%"
+
+echo %green%Uninstaller created successfully.%reset%
+
 :: Start Menu Shortcut
 echo %yellow%Creating Start Menu shortcut...%reset%
 

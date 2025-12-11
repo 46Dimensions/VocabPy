@@ -91,6 +91,62 @@ EOF
 
 chmod +x "$LAUNCHER"
 
+# Create uninstall script in $INSTALL_DIR
+UNINSTALLER="$INSTALL_DIR/uninstall"
+echo "${yellow}Creating uninstaller script at $UNINSTALLER...${reset}"
+cat > "$UNINSTALLER" <<EOF
+#!/usr/bin/env sh
+set -e
+
+echo "${green}======================================${reset}"
+echo "${green}Vocabulary Plus Unix Uninstaller 1.0.2${reset}"
+echo "${green}======================================${reset}"
+
+cd $INSTALL_DIR || { echo "${red}Failed to enter VocabularyPlus directory${reset}"; exit 1; }
+deactivate 2>/dev/null || true
+
+echo "${yellow}Removing VocabularyPlus installation...${reset}"
+# Remove files
+rm -f main.py create_vocab_file.py app_icon.png requirements.txt
+# Remove directories
+rm -rf JSON 2>/dev/null || true
+rm -rf venv 2>/dev/null || true
+echo "${green}VocabularyPlus files & directories removed.${reset}"
+
+# Remove launchers
+echo "${yellow}Removing launchers...${reset}"
+LAUNCHER_SCRIPT="$HOME/.local/bin/vocabularyplus"
+ALIAS="$HOME/.local/bin/vp"
+rm -f "$LAUNCHER_SCRIPT" 2>/dev/null || true
+rm -f "$ALIAS" 2>/dev/null || true
+echo "${green}Launchers removed.${reset}"
+
+# Remove Linux .desktop entry
+if [ "$(uname)" = "Linux" ]; then
+    echo "${yellow}Removing .desktop entry...${reset}"
+    DESKTOP_FILE="$HOME/.local/share/applications/vocabularyplus.desktop"
+    rm -f "$DESKTOP_FILE" 2>/dev/null || true
+    echo "${green}Linux desktop entry removed.${reset}"
+fi
+
+# Remove macOS .app bundle
+if [ "$(uname)" = "Darwin" ]; then
+    echo "${yellow}Removing macOS .app bundle...${reset}"
+    APP_BUNDLE="$HOME/Applications/VocabularyPlus.app"
+    rm -rf "$APP_BUNDLE" 2>/dev/null || true
+    echo "${green}macOS .app bundle removed.${reset}"
+fi
+
+echo ""
+echo "${green}Uninstallation complete.${reset}"
+echo "${yellow}If you found any errors in Vocabulary Plus, please report them at https://github.com/46Dimensions/VocabularyPlus/issues ${reset}"
+# Remove VocabularyPlus directory
+cd .. || { echo "${red}Failed to return to parent directory${reset}"; exit 1; }
+rm -rf VocabularyPlus 2>/dev/null || true
+rm install.sh 2>/dev/null || true
+EOF
+chmod +x "$UNINSTALLER"
+
 # Create alias symlink "vp"
 ALIAS="$HOME/.local/bin/vp"
 ln -sf "$LAUNCHER" "$ALIAS"
