@@ -108,6 +108,7 @@ fi
 if [ "\$1" = "uninstall" ]; then
     echo "${yellow}Running uninstaller...${reset}"
     /usr/bin/env sh $INSTALL_DIR/uninstall
+fi
 
 # Handle create subcommand
 PY="$INSTALL_DIR/venv/bin/python3"
