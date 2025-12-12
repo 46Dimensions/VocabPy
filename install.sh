@@ -18,6 +18,7 @@ MAIN_URL="$BASE_URL/main.py"
 CREATE_URL="$BASE_URL/create_vocab_file.py"
 ICON_URL="$BASE_URL/app_icon.png"
 README_URL="$BASE_URL/README.md"
+VERSION_URL="$BASE_URL/version.txt"
 
 check_python() {
     command -v python3 >/dev/null 2>&1 || {
@@ -125,8 +126,67 @@ case "\$1" in
     ;;
 esac
 EOF
-
 chmod +x "$LAUNCHER"
+
+# Create update script in $INSTALL_DIR/.vm
+# This script checks for the latest version of Vocabulary Plus
+mkdir -p "$INSTALL_DIR/.vm"
+UPDATE_SCRIPT="$INSTALL_DIR/.vm/update.sh"
+echo "${yellow}Creating update checker script at $UPDATE_SCRIPT...${reset}"
+cat > "$UPDATE_SCRIPT" <<EOF
+#!/usr/bin/env sh
+set -e
+echo "${green}Checking for updates...${reset}"
+echo "GET: $VERSION_URL"
+LATEST_VERSION=\$(curl -fsSL $VERSION_URL) || { echo "${red}Failed to find result.txt at $VERSION_URL${reset}"; exit 1; }
+CURRENT_VERSION="1.2.0"
+echo "READ: version.txt: \$LATEST_VERSION"
+if [ "\$LATEST_VERSION" != "\$CURRENT_VERSION" ]; then
+    echo "${yellow}Vocabulary Plus can be updated to version \${LATEST_VERSION}."
+    echo "Run 'vp-vm upgrade' to update.${reset}"
+else
+    echo "${green}You have the latest version of Vocabulary Plus (\${LATEST_VERSION}).${reset}"
+fi
+EOF
+chmod +x "$UPDATE_SCRIPT"
+
+# Create upgrade script in $INSTALL_DIR/.vm
+UPGRADE_SCRIPT="$INSTALL_DIR/.vm/upgrade.sh"
+echo "${yellow}Creating upgrade script at $UPGRADE_SCRIPT...${reset}"
+cat > "$UPGRADE_SCRIPT" <<EOF
+#!/usr/bin/env sh
+set -e
+echo "${green}Starting Vocabulary Plus upgrade...${reset}"
+cd "$INSTALL_DIR" || { echo "${red}There was an error accessing the directory ${INSTALL_DIR}${reset}"; exit 1; }
+cd ..
+mv VocabularyPlus/JSON . 2>/dev/null || true # Back up the JSON directory
+$HOME/.local/bin/vocabularyplus uninstall
+curl -fsSL $BASE_URL/install.sh -o install.sh || { echo "${red}Failed to download the latest installation script${reset}"; exit 1; }
+sh install.sh
+mv JSON VocabularyPlus/ 2>/dev/null || true # Restore the JSON directory
+echo "${green}Vocabulary Plus has been upgraded successfully.${reset}"
+EOF
+chmod +x "$UPGRADE_SCRIPT"
+
+# Make a version manager controller script in .local/bin
+VM_LAUNCHER="$HOME/.local/bin/vocabularyplus-vm"
+echo "${yellow}Creating version manager controller script at $VM_LAUNCHER...${reset}"
+cat > "$VM_LAUNCHER" <<EOF
+#!/usr/bin/env sh
+set -e
+if [ "\$1" == "update" ]; then
+    sh $UPDATE_SCRIPT
+fi
+
+if [ "\$1" == "upgrade" ]; then
+    sh $UPGRADE_SCRIPT
+fi
+EOF
+chmod +x "$VM_LAUNCHER"
+
+# Create alias symlink "vp-vm"
+ALIAS="$HOME/.local/bin/vp-vm"
+ln -sf "$VM_LAUNCHER" "$ALIAS"
 
 # Create uninstall script in $INSTALL_DIR
 UNINSTALLER="$INSTALL_DIR/uninstall"
