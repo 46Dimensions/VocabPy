@@ -22,3 +22,5 @@ A good issue should include:
 * A list of steps (1... 2... 3... etc) to reproduce the issue
 * What you saw, versus what you expected to see
 * An image or link to a video showing the issue occurring
+
+You can also use the ['Bug Report' issue template](https://github.com/46Dimensions/VocabularyPlus/blob/main/.github/ISSUE_TEMPLATE/bug-report.md) to help with creating a good bug report.
