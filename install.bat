@@ -9,7 +9,7 @@ set "yellow=%ESC%[33m"
 set "reset=%ESC%[0m"
 
 echo %green%=======================================%reset%
-echo %green%Vocabulary Plus Windows Installer 1.1.0%reset%
+echo %green%Vocabulary Plus Windows Installer 1.2.0%reset%
 echo %green%=======================================%reset%
 echo.
 
@@ -60,6 +60,7 @@ set "REQ_URL=%BASE_URL%/requirements.txt"
 set "MAIN_URL=%BASE_URL%/main.py"
 set "CREATE_URL=%BASE_URL%/create_vocab_file.py"
 set "ICON_URL=%BASE_URL%/app_icon.png"
+set "README_URL=%BASE_URL%/README.md"
 
 set "INSTALL_DIR=%CD%\VocabularyPlus"
 
@@ -73,6 +74,7 @@ curl -fsSL "%REQ_URL%" -o requirements.txt || (echo %red%Failed to download requ
 curl -fsSL "%MAIN_URL%" -o main.py || (echo %red%Failed to download main.py%reset% & exit /b 1)
 curl -fsSL "%CREATE_URL%" -o create_vocab_file.py || (echo %red%Failed to download create_vocab_file.py%reset% & exit /b 1)
 curl -fsSL "%ICON_URL%" -o app_icon.png || (echo %red%Failed to download icon%reset% & exit /b 1)
+curl -fsSL "%README_URL%" -o README.md || (echo %red%Failed to download README.md%reset% & exit /b 1)
 
 :: Virtual environment
 echo %yellow%Creating virtual environment...%reset%
@@ -102,13 +104,45 @@ echo @echo off
 echo set "PY=%INSTALL_DIR%\venv\Scripts\python.exe"
 echo set "APPDIR=%INSTALL_DIR%"
 echo.
+:: Help option
+echo if "%%1"=="--help" (
+    echo echo.
+    echo echo "Usage: vocabularyplus [create] [options]"
+    echo echo "Commands:"
+    echo echo "  create        Create a new vocabulary file"
+    echo echo "  uninstall     Uninstall Vocabulary Plus"
+    echo echo "Options:"
+    echo echo "  -v, --version   Show version information"
+    echo echo "  --help          Show this help message"
+    echo echo "Alias:"
+    echo echo "  vp            Shortcut for vocabularyplus"
+    exit /b 0
+)
+echo.
+:: Version option
+if "%1"=="--version" (
+  echo 1.2.0
+) else if "%1"=="-v" (
+  echo 1.2.0
+)
+echo.
+:: Handle "uninstall" subcommand
+echo if "%%1"=="uninstall" (
+echo     echo %yellow%Starting uninstallation...%reset%
+echo     "%%APPDIR%%\uninstall.cmd"
+echo     exit /b 0
+echo ) 
+echo.
+:: Handle "create" subcommand
 echo if "%%1"=="create" (
 echo     shift
-echo     "%%PY%%" "%%APPDIR%%\create_vocab_file.py" %%*
+echo     "%%PY%%" "%%APPDIR%%\create_vocab_file.py" %%%%*
 echo ) else (
-echo     "%%PY%%" "%%APPDIR%%\main.py" %%*
+echo     "%%PY%%" "%%APPDIR%%\main.py" %%%%*
 echo )
+echo.
 ) > "%LAUNCHER%"
+echo %green%Launcher created successfully.%reset%
 
 :: Create alias "vp"
 echo @echo off ^& "%LAUNCHER%" %%* > "%BIN_DIR%\vp.cmd"
@@ -122,7 +156,7 @@ echo @echo off
 echo setlocal ENABLEDELAYEDEXPANSION
 
 echo echo %green%=========================================%reset%
-echo echo %green%Vocabulary Plus Windows Uninstaller 1.1.0%reset%
+echo echo %green%Vocabulary Plus Windows Uninstaller 1.2.0%reset%
 echo echo %green%=========================================%reset%
 echo echo.
 
@@ -187,13 +221,13 @@ echo %green%Start Menu shortcut created successfully.%reset%
 
 :: Final message
 echo.
-echo %green%Vocabulary Plus 1.1.0 installed successfully!%reset%
+echo %green%Vocabulary Plus 1.2.0 installed successfully!%reset%
 echo.
 echo Now you can run:
-echo   vocabularyplus ::main application
-echo   vocabularyplus create ::to create a new vocabulary file
-echo   vp ::shortcut for main application
-echo   vp create ::shortcut to create a new vocabulary file
+echo   vocabularyplus :: main application
+echo   vocabularyplus create :: to create a new vocabulary file
+echo   vp :: shortcut for main application
+echo   vp create :: shortcut to create a new vocabulary file
 echo.
 echo If commands don't work, add this to PATH:
 echo   %BIN_DIR%

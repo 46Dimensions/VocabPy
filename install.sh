@@ -8,7 +8,7 @@ yellow="\033[33m"
 reset="\033[0m"
 
 echo "${green}====================================${reset}"
-echo "${green}Vocabulary Plus Unix Installer 1.1.0${reset}"
+echo "${green}Vocabulary Plus Unix Installer 1.2.0${reset}"
 echo "${green}====================================${reset}"
 echo
 
@@ -17,6 +17,8 @@ REQ_URL="$BASE_URL/requirements.txt"
 MAIN_URL="$BASE_URL/main.py"
 CREATE_URL="$BASE_URL/create_vocab_file.py"
 ICON_URL="$BASE_URL/app_icon.png"
+README_URL="$BASE_URL/README.md"
+VERSION_URL="$BASE_URL/version.txt"
 
 check_python() {
     command -v python3 >/dev/null 2>&1 || {
@@ -55,6 +57,7 @@ curl -fsSL "$REQ_URL" -o requirements.txt || { echo "${red}Failed to download re
 curl -fsSL "$MAIN_URL" -o main.py || { echo "${red}Failed to download main.py${reset}"; exit 1; }
 curl -fsSL "$CREATE_URL" -o create_vocab_file.py || { echo "${red}Failed to download create_vocab_file.py${reset}"; exit 1; }
 curl -fsSL "$ICON_URL" -o app_icon.png || { echo "${red}Failed to download icon${reset}"; exit 1; }
+curl -fsSL "$README_URL" -o README.md || { echo "${red}Failed to download README.md${reset}"; exit 1; }
 
 echo "${yellow}Creating virtual environment...${reset}"
 python3 -m venv venv || { echo "${red}Failed to create venv${reset}"; exit 1; }
@@ -74,9 +77,10 @@ mkdir -p "$(dirname "$LAUNCHER")"
 
 echo "${yellow}Creating launcher script at $LAUNCHER...${reset}"
 cat > "$LAUNCHER" <<EOF
-# Resolve the directory where this launcher script itself lives
-SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+#!/usr/bin/env sh
+set -e
 
+# Check for venv in $INSTALL_DIR
 if [ -d "$INSTALL_DIR/venv" ]; then
     BASE_DIR="$INSTALL_DIR"
 else
@@ -84,19 +88,44 @@ else
     exit 1
 fi
 
-PY="$INSTALL_DIR/venv/bin/python3"
+# Handle --version flag
+if [ "\$1" = "--version" ] || [ "\$1" = "-v" ]; then
+    echo 1.2.0
+    exit 0
+fi
 
-case "$1" in
+# Handle --help flag
+if [ "\$1" = "--help" ]; then
+    echo "Usage: vocabularyplus [create] [options]"
+    echo "Commands:"
+    echo "  create        Create a new vocabulary file"
+    echo "  uninstall     Uninstall Vocabulary Plus"
+    echo "Options:"
+    echo "  -v, --version   Show version information"
+    echo "  --help          Show this help message"
+    echo "Alias:"
+    echo "  vp            Shortcut for vocabularyplus"
+    exit 0
+fi
+
+# Handle uninstall subcommand
+if [ "\$1" = "uninstall" ]; then
+    echo "${yellow}Running uninstaller...${reset}"
+    /usr/bin/env sh $INSTALL_DIR/uninstall
+fi
+
+# Handle create subcommand
+PY="$INSTALL_DIR/venv/bin/python3"
+case "\$1" in
   create)
     shift
-    "$PY" "$INSTALL_DIR/create_vocab_file.py" "$@"
+    "\$PY" "$INSTALL_DIR/create_vocab_file.py" "\$@"
     ;;
   *)
-    "$PY" "$INSTALL_DIR/main.py" "$@"
+    "\$PY" "$INSTALL_DIR/main.py" "\$@"
     ;;
 esac
 EOF
-
 chmod +x "$LAUNCHER"
 
 # Create uninstall script in $INSTALL_DIR
@@ -107,7 +136,7 @@ cat > "$UNINSTALLER" <<EOF
 set -e
 
 echo "${green}======================================${reset}"
-echo "${green}Vocabulary Plus Unix Uninstaller 1.1.0${reset}"
+echo "${green}Vocabulary Plus Unix Uninstaller 1.2.0${reset}"
 echo "${green}======================================${reset}"
 
 cd $INSTALL_DIR || { echo "${red}Failed to enter VocabularyPlus directory${reset}"; exit 1; }
@@ -218,11 +247,11 @@ EOF
 fi
 
 echo
-echo "${green}Vocabulary Plus 1.1.0 installed successfully${reset}"
-echo "  vocabularyplus #main application"
-echo "  vocabularyplus create #to create a new vocabulary file "
-echo "  vp #shortcut for main application "
-echo "  vp create #shortcut to create a new vocabulary file "
+echo "${green}Vocabulary Plus 1.2.0 installed successfully${reset}"
+echo "  vocabularyplus # main application"
+echo "  vocabularyplus create # to create a new vocabulary file "
+echo "  vp # shortcut for main application "
+echo "  vp create # shortcut to create a new vocabulary file "
 echo
 echo "If these don't work, make sure ~/.local/bin is in your PATH:"
 echo "  export PATH=\"\$HOME/.local/bin:\$PATH\""
