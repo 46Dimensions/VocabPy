@@ -1,5 +1,5 @@
 # Vocabulary Plus - Updates
-Vocabulary Plus is regularly updated. Below is a list of recent updates (v1.0.0 to v1.2.0).
+Vocabulary Plus is regularly updated. Below is a list of recent updates (v1.0.0 to v1.2.1).
 
 ## v1.0.0
 Released: 29th November 2025
@@ -50,7 +50,7 @@ Released: 11th December 2025
 [_View on GitHub_](https://github.com/46Dimensions/VocabularyPlus/releases/v1.1)
 
 ## v1.2.0
-Released: 11th December 2025
+Released: 15th December 2025
 ### Terminal Commands
 - Added flags
     - `--help`
@@ -61,7 +61,7 @@ Released: 11th December 2025
 ### Other
 - Added [contribution instructions](CONTRIBUTING.md).
 
-[_View on GitHub_](https://github.com/46Dimensions/VocabularyPlus/releases/v1.2.0)
+[_View on GitHub_](https://github.com/46Dimensions/VocabularyPlus/releases/1.2.0)
 
 ## v1.2.1
 Released: 15th December 2025
