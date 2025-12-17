@@ -1,5 +1,5 @@
 # Vocabulary Plus - Updates
-Vocabulary Plus is regularly updated. Below is a list of recent updates (v1.0.0 to v1.2.1).
+Vocabulary Plus is regularly updated. Below is a list of recent updates (v1.0.0 to v1.3.0).
 
 ## v1.0.0
 Released: 29th November 2025
@@ -71,3 +71,35 @@ Released: 15th December 2025
 - Patched some minor problems
 
 [_View on GitHub_](https://github.com/46Dimensions/VocabularyPlus/releases/v1.2.1)
+
+
+## v1.3.0
+Released: 17th December 2025
+### Installation Scripts
+- Updated headers   
+  #### Old headers:   
+  *Unix*
+  ```
+  ====================================
+  Vocabulary Plus Unix Installer 1.2.1
+  ====================================
+  ```
+  *Windows*
+  ```
+  =======================================
+  Vocabulary Plus Windows Installer 1.2.1
+  =======================================
+  ```
+  #### New headers:
+  *macOS/Linux*
+  ```
+  =======================================
+  Vocabulary Plus: Unix Installer (1.3.0)
+  =======================================
+  ```
+  *Windows*
+  ```
+  ==========================================
+  Vocabulary Plus: Windows Installer (1.3.0)
+  ==========================================
+  ```
