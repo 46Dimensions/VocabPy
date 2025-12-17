@@ -8,9 +8,9 @@ set "green=%ESC%[32m"
 set "yellow=%ESC%[33m"
 set "reset=%ESC%[0m"
 
-echo %green%=======================================%reset%
-echo %green%Vocabulary Plus Windows Installer 1.2.1%reset%
-echo %green%=======================================%reset%
+echo %green%==========================================%reset%
+echo %green%Vocabulary Plus: Windows Installer (1.2.1)%reset%
+echo %green%==========================================%reset%
 echo.
 
 :: Windows 10+ Check
@@ -155,9 +155,9 @@ echo %yellow%Creating uninstaller script at %UNINSTALLER%...%reset%
 echo @echo off
 echo setlocal ENABLEDELAYEDEXPANSION
 
-echo echo %green%=========================================%reset%
-echo echo %green%Vocabulary Plus Windows Uninstaller 1.2.1%reset%
-echo echo %green%=========================================%reset%
+echo echo %green%============================================%reset%
+echo echo %green%Vocabulary Plus: Windows Uninstaller (1.2.1)%reset%
+echo echo %green%============================================%reset%
 echo echo.
 
 echo echo %yellow%Removing VocabularyPlus installation...%reset%
