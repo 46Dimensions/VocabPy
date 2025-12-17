@@ -275,7 +275,6 @@ echo "  vp-vm --help"
 echo ""
 echo "To uninstall Vocabulary Plus, run:"
 echo "  vocabularyplus uninstall"
-
 echo ""
 echo "If these don't work, add this to PATH:"
 echo "  $HOME/.local/bin"
