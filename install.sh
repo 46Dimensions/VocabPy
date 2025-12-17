@@ -258,7 +258,6 @@ echo "${yellow}Running VP VM installer...${reset}"
 sh install-vm.sh $INSTALL_DIR/vm || { echo "${red}Failed to install VP VM${reset}"; exit 1; }
 # Remove installer
 rm install-vm.sh
-echo "${green}Vocabulary Plus Version Manager installed successfully.${reset}"
 
 # Final message
 echo ""
