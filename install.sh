@@ -2,14 +2,15 @@
 set -e
 
 # ANSI colours
-red="\033[31m"
-green="\033[32m"
-yellow="\033[33m"
+red="\033[91m"
+green="\033[92m"
+yellow="\033[93m"
+cyan="\033[1;96m"
 reset="\033[0m"
 
-echo "${green}=======================================${reset}"
-echo "${green}Vocabulary Plus: Unix Installer (1.2.1)${reset}"
-echo "${green}=======================================${reset}"
+echo "${cyan}=======================================${reset}"
+echo "${cyan}Vocabulary Plus: Unix Installer (1.2.1)${reset}"
+echo "${cyan}=======================================${reset}"
 echo
 
 BASE_URL="https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main"
