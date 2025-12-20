@@ -38,4 +38,4 @@ A good issue should include:
 * What you saw, versus what you expected to see
 * An image or link to a video showing the issue occurring
 
-You can also use the ['Bug Report' issue template](https://github.com/46Dimensions/VocabularyPlus/blob/main/.github/ISSUE_TEMPLATE/bug-report.md) to help with creating a good bug report.
+You can also use the ['Bug Report' issue template](https://github.com/46Dimensions/VocabularyPlus/blob/1.3.0/.github/ISSUE_TEMPLATE/bug-report.md) to help with creating a good bug report.

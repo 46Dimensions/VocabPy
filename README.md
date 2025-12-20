@@ -7,7 +7,7 @@ A Python-based foreign vocabulary learning tool.
 
 ## Installation
 
-Run these commands in your terminal.  
+Run these commands in your terminal to install version 1.3.0 Beta.  
 You must have Python 3.10+ installed.
 
 ### Windows
@@ -15,7 +15,7 @@ You must have Python 3.10+ installed.
 _Run in **Command Prompt** (cmd.exe)_
 
 ``` batch
-curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.bat -o install.bat
+curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.3.0/install.bat -o install.bat
 install.bat
 del /q install.bat
 ```
@@ -25,7 +25,7 @@ del /q install.bat
 _Run in the **Terminal** app. The exact name can vary._
 
 ``` shell
-curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.3.0/install.sh | sh
 ```
 
 ## Uninstallation
@@ -43,7 +43,8 @@ To make a vocabulary JSON file, run `vocabularyplus create` or `vp create`.
 
 ## Reporting bugs
 
-Go to [Create New Issue](https://github.com/46Dimensions/VocabularyPlus/issues/new). For more information, see [Contributing](CONTRIBUTING.md).
+Go to [Create New Issue](https://github.com/46Dimensions/VocabularyPlus/issues/new).
+For more information, see [Contributing](CONTRIBUTING.md).
 
 ## License
 

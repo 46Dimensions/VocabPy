@@ -18,12 +18,12 @@ if [ "$SILENT" -eq 1 ]; then
   exec >/dev/null
 fi
 
-echo "${cyan}=======================================${reset}"
+echo "${cyan}============================================${reset}"
 echo "${cyan}Vocabulary Plus: Unix Installer (1.3.0 Beta)${reset}"
-echo "${cyan}=======================================${reset}"
+echo "${cyan}============================================${reset}"
 echo
 
-BASE_URL="https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/vp-vm"
+BASE_URL="https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.3.0"
 REQ_URL="$BASE_URL/requirements.txt"
 MAIN_URL="$BASE_URL/main.py"
 CREATE_URL="$BASE_URL/create_vocab_file.py"
@@ -161,9 +161,9 @@ if [ "\$SILENT" -eq 1 ]; then
   exec >/dev/null
 fi
 
-echo "${green}=========================================${reset}"
+echo "${green}==============================================${reset}"
 echo "${green}Vocabulary Plus: Unix Uninstaller (1.3.0 Beta)${reset}"
-echo "${green}=========================================${reset}"
+echo "${green}==============================================${reset}"
 
 cd $INSTALL_DIR || { echo "${red}Failed to enter VocabularyPlus directory${reset}"; exit 1; }
 deactivate 2>/dev/null || true

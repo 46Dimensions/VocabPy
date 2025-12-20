@@ -9,9 +9,9 @@ set "yellow=%ESC%[93m"
 set "cyan=%ESC%[1;96m"
 set "reset=%ESC%[0m"
 
-echo %cyan%==========================================%reset%
+echo %cyan%===============================================%reset%
 echo %cyan%Vocabulary Plus: Windows Installer (1.3.0 Beta)%reset%
-echo %cyan%==========================================%reset%
+echo %cyan%===============================================%reset%
 echo.
 
 :: Windows 10+ Check
@@ -56,9 +56,9 @@ if not errorlevel 1 (
 )
 
 :: Paths + download URLs
-set "BASE_URL=https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main"
+set "BASE_URL=https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.3.0"
 set "REQ_URL=%BASE_URL%/requirements.txt"
-set "MAIN_URL=%BASE_URL%/main.py"
+set "1.3.0_URL=%BASE_URL%/main.py"
 set "CREATE_URL=%BASE_URL%/create_vocab_file.py"
 set "ICON_URL=%BASE_URL%/app_icon.png"
 set "README_URL=%BASE_URL%/README.md"
@@ -156,9 +156,9 @@ echo %yellow%Creating uninstaller script at %UNINSTALLER%...%reset%
 echo @echo off
 echo setlocal ENABLEDELAYEDEXPANSION
 
-echo echo %green%============================================%reset%
+echo echo %green%=================================================%reset%
 echo echo %green%Vocabulary Plus: Windows Uninstaller (1.3.0 Beta)%reset%
-echo echo %green%============================================%reset%
+echo echo %green%=================================================%reset%
 echo echo.
 
 echo echo %yellow%Removing VocabularyPlus installation...%reset%
