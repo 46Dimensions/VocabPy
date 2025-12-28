@@ -61,7 +61,7 @@ set "REQ_URL=%BASE_URL%/requirements.txt"
 set "1.3.0_URL=%BASE_URL%/main.py"
 set "CREATE_URL=%BASE_URL%/create_vocab_file.py"
 set "ICON_URL=%BASE_URL%/app_icon.png"
-set "README_URL=%BASE_URL%/README.md"
+set "VP_VM_INSTALLER_URL=https://raw.githubusercontent.com/46Dimensions/vp-vm/main/install-vm.bat"
 
 set "INSTALL_DIR=%CD%\VocabularyPlus"
 
@@ -75,7 +75,6 @@ curl -fsSL "%REQ_URL%" -o requirements.txt || (echo %red%Failed to download requ
 curl -fsSL "%MAIN_URL%" -o main.py || (echo %red%Failed to download main.py%reset% & exit /b 1)
 curl -fsSL "%CREATE_URL%" -o create_vocab_file.py || (echo %red%Failed to download create_vocab_file.py%reset% & exit /b 1)
 curl -fsSL "%ICON_URL%" -o app_icon.png || (echo %red%Failed to download icon%reset% & exit /b 1)
-curl -fsSL "%README_URL%" -o README.md || (echo %red%Failed to download README.md%reset% & exit /b 1)
 
 :: Virtual environment
 echo %yellow%Creating virtual environment...%reset%
@@ -122,9 +121,9 @@ echo if "%%1"=="--help" (
 echo.
 :: Version option
 if "%1"=="--version" (
-  echo 1.3.0-beta
+  echo 1.3.0
 ) else if "%1"=="-v" (
-  echo 1.3.0-beta
+  echo 1.3.0
 )
 echo.
 :: Handle "uninstall" subcommand
@@ -219,6 +218,20 @@ powershell -NoProfile -Command ^
     "$s.Save()"
 
 echo %green%Start Menu shortcut created successfully.%reset%
+
+:: Install Vocabulary Plus Version Manager
+echo %yellow%Installing Vocabulary Plus Version Manager...%reset%
+echo %yellow%Downloading installer...%reset%
+curl -fsSL "%VP_VM_INSTALLER_URL%" -o install-vm.bat || (echo %red%Failed to download VP VM installer%reset% & exit /b 1)
+echo %green%Download complete.%reset%
+echo %yellow%Running VP VM installer...%reset%
+call install-vm.bat "%INSTALL_DIR%\vm" || (echo %red%Failed to install VP VM%reset% & exit /b 1)
+echo %green%VP VM installation complete.%reset%
+del /q install-vm.bat
+
+:: Create version directory and file if needed
+if not exist "%INSTALL_DIR%\vm\versions\vp" mkdir "%INSTALL_DIR%\vm\versions\vp"
+echo 1.3.0 > "%INSTALL_DIR%\vm\versions\vp\current.txt"
 
 :: Final message
 echo.

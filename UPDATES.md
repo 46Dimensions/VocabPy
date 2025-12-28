@@ -173,7 +173,7 @@ Version 1.3.0 is currently in Beta, so it is unstable.
 
 - Changed the icon for the desktop app to
 
-[![The Vocabulary Plus logo](/app_icon.png "Vocabulary Plus logo")](/app_icon.png)
+[![The Vocabulary Plus logo](https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.3.0/app_icon.png)](https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.3.0/app_icon.png)
 
 ### Markdown Documentation
 
@@ -185,3 +185,30 @@ Version 1.3.0 is currently in Beta, so it is unstable.
 - Added the [Vocabulary Plus logo](/readme_icon.png) to the top of [the file](/README.md)
 
 [_View on GitHub_](https://github.com/46Dimensions/VocabularyPlus/releases/v1.3.0-beta)
+
+## v1.3.0 (Stable)
+
+Released: 28th December 2025  
+This version contains all of the changes from v1.3.0 Beta and some more (below).
+
+### Windows Installer
+
+- Added integration with Vocabulary Plus Version Manager
+
+### Markdown
+
+#### Images
+
+- Images are now accessed via the web.
+
+#### Update notes
+
+- Renamed from updates.md to UPDATES.md
+
+#### README
+
+- Now no longer downloaded in installation scripts
+
+### Version file
+
+- Renamed from version.txt to VERSION.txt
