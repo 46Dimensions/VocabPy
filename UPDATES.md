@@ -165,7 +165,7 @@ Version 1.3.0 is currently in Beta, so it is unstable.
   - See [`vp-vm`'s README](https://github.com/46Dimensions/vp-vm/blob/main/README.md) for more information.
   - It will be available on Windows in 2026, in version 1.3.0.
 
-### Version
+### Version file
 
 - Added a `version.txt` file for use in `vp-vm`
 
