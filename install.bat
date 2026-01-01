@@ -3,14 +3,15 @@ setlocal ENABLEDELAYEDEXPANSION
 
 :: Enable ANSI escape sequences (Windows 10+ only)
 for /f %%A in ('echo prompt $E ^| cmd') do set "ESC=%%A"
-set "red=%ESC%[31m"
-set "green=%ESC%[32m"
-set "yellow=%ESC%[33m"
+set "red=%ESC%[91m"
+set "green=%ESC%[92m"
+set "yellow=%ESC%[93m"
+set "cyan=%ESC%[1;96m"
 set "reset=%ESC%[0m"
 
-echo %green%=======================================%reset%
-echo %green%Vocabulary Plus Windows Installer 1.2.1%reset%
-echo %green%=======================================%reset%
+echo %cyan%===============================================%reset%
+echo %cyan%Vocabulary Plus: Windows Installer (1.3.0)%reset%
+echo %cyan%===============================================%reset%
 echo.
 
 :: Windows 10+ Check
@@ -55,12 +56,12 @@ if not errorlevel 1 (
 )
 
 :: Paths + download URLs
-set "BASE_URL=https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main"
+set "BASE_URL=https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.3.0"
 set "REQ_URL=%BASE_URL%/requirements.txt"
-set "MAIN_URL=%BASE_URL%/main.py"
+set "1.3.0_URL=%BASE_URL%/main.py"
 set "CREATE_URL=%BASE_URL%/create_vocab_file.py"
 set "ICON_URL=%BASE_URL%/app_icon.png"
-set "README_URL=%BASE_URL%/README.md"
+set "VP_VM_INSTALLER_URL=https://raw.githubusercontent.com/46Dimensions/vp-vm/main/install-vm.bat"
 
 set "INSTALL_DIR=%CD%\VocabularyPlus"
 
@@ -74,7 +75,6 @@ curl -fsSL "%REQ_URL%" -o requirements.txt || (echo %red%Failed to download requ
 curl -fsSL "%MAIN_URL%" -o main.py || (echo %red%Failed to download main.py%reset% & exit /b 1)
 curl -fsSL "%CREATE_URL%" -o create_vocab_file.py || (echo %red%Failed to download create_vocab_file.py%reset% & exit /b 1)
 curl -fsSL "%ICON_URL%" -o app_icon.png || (echo %red%Failed to download icon%reset% & exit /b 1)
-curl -fsSL "%README_URL%" -o README.md || (echo %red%Failed to download README.md%reset% & exit /b 1)
 
 :: Virtual environment
 echo %yellow%Creating virtual environment...%reset%
@@ -121,9 +121,9 @@ echo if "%%1"=="--help" (
 echo.
 :: Version option
 if "%1"=="--version" (
-  echo 1.2.1
+  echo 1.3.0
 ) else if "%1"=="-v" (
-  echo 1.2.1
+  echo 1.3.0
 )
 echo.
 :: Handle "uninstall" subcommand
@@ -155,9 +155,9 @@ echo %yellow%Creating uninstaller script at %UNINSTALLER%...%reset%
 echo @echo off
 echo setlocal ENABLEDELAYEDEXPANSION
 
-echo echo %green%=========================================%reset%
-echo echo %green%Vocabulary Plus Windows Uninstaller 1.2.1%reset%
-echo echo %green%=========================================%reset%
+echo echo %green%=================================================%reset%
+echo echo %green%Vocabulary Plus: Windows Uninstaller (1.3.0)%reset%
+echo echo %green%=================================================%reset%
 echo echo.
 
 echo echo %yellow%Removing VocabularyPlus installation...%reset%
@@ -219,15 +219,35 @@ powershell -NoProfile -Command ^
 
 echo %green%Start Menu shortcut created successfully.%reset%
 
+:: Install Vocabulary Plus Version Manager
+echo %yellow%Installing Vocabulary Plus Version Manager...%reset%
+echo %yellow%Downloading installer...%reset%
+curl -fsSL "%VP_VM_INSTALLER_URL%" -o install-vm.bat || (echo %red%Failed to download VP VM installer%reset% & exit /b 1)
+echo %green%Download complete.%reset%
+echo %yellow%Running VP VM installer...%reset%
+call install-vm.bat "%INSTALL_DIR%\vm" || (echo %red%Failed to install VP VM%reset% & exit /b 1)
+echo %green%VP VM installation complete.%reset%
+del /q install-vm.bat
+
+:: Create version directory and file if needed
+if not exist "%INSTALL_DIR%\vm\versions\vp" mkdir "%INSTALL_DIR%\vm\versions\vp"
+echo 1.3.0 > "%INSTALL_DIR%\vm\versions\vp\current.txt"
+
 :: Final message
 echo.
-echo %green%Vocabulary Plus 1.2.1 installed successfully!%reset%
+echo %green%Vocabulary Plus 1.3.0 installed successfully%reset%
 echo.
-echo Now you can run:
-echo   vocabularyplus :: main application
-echo   vocabularyplus create :: to create a new vocabulary file
-echo   vp :: shortcut for main application
-echo   vp create :: shortcut to create a new vocabulary file
+echo You can run Vocabulary Plus with the following commands:
+echo   vocabularyplus           main application
+echo   vocabularyplus create    to create a new vocabulary file
+echo   vp                       shortcut for main application
+echo   vp create                shortcut to create a new vocabulary file
+echo.
+echo To use vp-vm (Vocabulary Plus Version Manager), see its help message:
+echo   vp-vm --help
+echo.
+echo To uninstall Vocabulary Plus, run:
+echo   vocabularyplus uninstall
 echo.
 echo If commands don't work, add this to PATH:
 echo   %BIN_DIR%

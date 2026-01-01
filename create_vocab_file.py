@@ -19,9 +19,7 @@ os.makedirs(JSON_DIR, exist_ok=True)
 # Initialise colorama (it will translate ANSI codes on Windows automatically)
 init(autoreset=False)
 
-# Print system information
-print(f"{Fore.GREEN}Running with Python {platform.python_version()} on {platform.system()}.{Style.RESET_ALL}")
-print(f"{Fore.GREEN}Vocabulary Plus Version: 1.2.1{Style.RESET_ALL}")
+# Print CTRL+C instructions
 print(f"{Fore.RED}Press CTRL+C to quit.{Style.RESET_ALL}\n")
 time.sleep(0.5)
 
