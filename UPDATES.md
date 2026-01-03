@@ -294,6 +294,7 @@ because they had not been shortened when the version was changed from '1.3.0 Bet
 
 - Removed _View on GitHub_ link from v1.3.0 Beta and added it to v1.3.0
 - Added note about v1.3.0 Beta being deleted
+- Added links to files underneath headings
 
 #### Contribution Instructions
 
