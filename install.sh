@@ -18,9 +18,9 @@ if [ "$SILENT" -eq 1 ]; then
   exec >/dev/null
 fi
 
-echo "${cyan}============================================${reset}"
+echo "${cyan}=======================================${reset}"
 echo "${cyan}Vocabulary Plus: Unix Installer (1.3.0)${reset}"
-echo "${cyan}============================================${reset}"
+echo "${cyan}=======================================${reset}"
 echo
 
 BASE_URL="https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.3.0"
