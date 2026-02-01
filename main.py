@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
+from colorama import init, Cursor, ansi, Fore, Style
 from typing import Tuple, Dict, Optional
 from pathlib import Path
-from colorama import init, Cursor, ansi, Fore, Style
 import random
 import json
 import time
@@ -37,7 +37,7 @@ def on_keyboard_interrupt(summary: str) -> None:
     print("\n" + summary)
 
     print(f"{Fore.LIGHTGREEN_EX}Thank you for using Vocabulary Plus. Goodbye!{Style.RESET_ALL}")
-    time.sleep(3)
+    time.sleep(1)
     sys.exit(0)
 
 def get_jsons(dir: str) -> list:
@@ -293,8 +293,19 @@ def get_summary(user_answers: list, correct_answers: list) -> str:
         else:
             incorrect += 1
 
-    # Forma the summary
-    summary = f"\n{Fore.CYAN}Quiz Summary{Style.RESET_ALL}\nQuestions Attempted: {total_questions}\n{Fore.GREEN}Correct Answers: {correct}{Style.RESET_ALL}\n{Fore.RED}Incorrect Answers: {incorrect}{Style.RESET_ALL}\n{Fore.YELLOW}Not Answered: {not_answered}{Style.RESET_ALL}\n"
+    try:
+        percentage = correct / total_questions * 100
+    except:
+        percentage = -1
+    title = f"{Fore.CYAN}Quiz Summary{Style.RESET_ALL}"
+    questions_attempted = f"Questions Attempted: {total_questions}"
+    correct_answers_text = f"{Fore.GREEN}Correct Answers: {correct}{Style.RESET_ALL}"
+    incorrect_answers_text = f"{Style.RESET_ALL}\n{Fore.RED}Incorrect Answers: {incorrect}{Style.RESET_ALL}"
+    not_answered_text = f"{Fore.YELLOW}Not Answered: {not_answered}{Style.RESET_ALL}"
+    percentage_text = f"{Fore.CYAN}Percentage: {percentage:.0f}%{Style.RESET_ALL}"
+
+    # Format the summary
+    summary = f"\n{title}\n{questions_attempted}\n{correct_answers_text}{incorrect_answers_text}\n{not_answered_text}\n{percentage_text if percentage > -1 else ""}\n"
 
     return summary
 
@@ -513,12 +524,14 @@ def main() -> None:
             Filename (relative to `JSON_DIR`) of the JSON file that contains the
             `words` mapping and language metadata.
         """
-        nonlocal user_answers, correct_answers
+        nonlocal user_answers, correct_answers, question_number
         # Build the absolute path to the JSON file.
         json_path = os.path.join(JSON_DIR, vocab_file)
          
         # Generate a random question.
         question_text, question_word, word_location = get_question(json_path)
+
+        dynamic_print(f"\n{Fore.YELLOW}Question {question_number}{Style.RESET_ALL}")
 
         # Prompt the user and capture their answer.
         user_answer = dynamic_input(f"{Fore.MAGENTA}{question_text} {Style.RESET_ALL}", summary=get_summary(user_answers, correct_answers))
@@ -542,7 +555,8 @@ def main() -> None:
 
         # Pause briefly so the user can read the feedback, then clean up the terminal lines that were printed for the question/answer.
         time.sleep(3)
-        clear_lines(2)
+        clear_lines(4)
+        question_number += 1
 
     # Store user answers and correct answers for summary
     correct_answers = list()
@@ -574,11 +588,9 @@ def main() -> None:
         print(f"{Fore.YELLOW}Unable to locate the selected vocabulary file.{Style.RESET_ALL}")
         sys.exit(1)
 
-    # --------------------------- Question UI ---------------------------
-    print(f"\n{Fore.YELLOW}Question{Style.RESET_ALL}")
-
     # --------------------------- Loop ----------------------------------
     try:
+        question_number = 1
         while True:
             ask_question(vocab_file)
     except KeyboardInterrupt:
