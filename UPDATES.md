@@ -253,3 +253,18 @@ because they had not been shortened when the version was changed from '1.3.0 Bet
   - Edited markdownlint configuration to allow the `<details>` tag
   
 [_View on GitHub_](https://github.com/46Dimensions/VocabularyPlus/releases/v1.3.1)
+
+## v1.4.0
+
+Released: 1st February 2026
+
+## Main
+
+- Added percentage to the summary
+- Added the question number to the header above the question
+- Added 1-second wait on Ctrl+C exit
+- Removed an unused import
+
+## Update Log
+
+- Removed versions older than 3 months (v1.0.0 and v1.0.1)
