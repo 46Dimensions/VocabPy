@@ -293,8 +293,10 @@ def get_summary(user_answers: list, correct_answers: list) -> str:
         else:
             incorrect += 1
 
-    # Forma the summary
-    summary = f"\n{Fore.CYAN}Quiz Summary{Style.RESET_ALL}\nQuestions Attempted: {total_questions}\n{Fore.GREEN}Correct Answers: {correct}{Style.RESET_ALL}\n{Fore.RED}Incorrect Answers: {incorrect}{Style.RESET_ALL}\n{Fore.YELLOW}Not Answered: {not_answered}{Style.RESET_ALL}\n"
+    percentage = correct / total_questions * 100
+
+    # Format the summary
+    summary = f"\n{Fore.CYAN}Quiz Summary{Style.RESET_ALL}\nQuestions Attempted: {total_questions}\n{Fore.GREEN}Correct Answers: {correct}{Style.RESET_ALL}\n{Fore.RED}Incorrect Answers: {incorrect}{Style.RESET_ALL}\n{Fore.YELLOW}Not Answered: {not_answered}{Style.RESET_ALL}\n{Fore.GREEN if percentage >= 50 else Fore.RED}Percentage: {percentage:.0f}%{Style.RESET_ALL}"
 
     return summary
 
