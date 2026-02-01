@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
+from colorama import init, Cursor, ansi, Fore, Style
 from typing import Tuple, Dict, Optional
 from pathlib import Path
-from colorama import init, Cursor, ansi, Fore, Style
 import random
 import json
 import time
